@@ -4,10 +4,12 @@ import java.util.List;
 public class ProductManager {
     private List<Product> products;
     private Cart cart;
+    private OrderProcessing orderProcessing;
 
     public ProductManager() {
         products = new ArrayList<>();
         cart = new Cart();
+        orderProcessing = new OrderProcessing();
     }
 
     public void addProduct(Product product) {
@@ -27,8 +29,8 @@ public class ProductManager {
         }
     }
 
-    public List<Product> viewProducts() {
-        return products;
+    public void viewProducts() {
+        products.forEach(System.out::println);
     }
 
     public Product getProductById(int productId) {
@@ -55,8 +57,20 @@ public class ProductManager {
         cart.viewCart();
     }
 
-    public void placeOrder() {
-        cart.placeOrder();
+    public void placeOrder(String customerName, String customerEmail) {
+        if (cart.getCartItems().isEmpty()) {
+            System.out.println("The cart is empty. Add products to the cart before placing an order.");
+        } else {
+            orderProcessing.processOrder(customerName, customerEmail, cart.getCartItems());
+            cart.getCartItems().clear();
+        }
+    }
+
+    public void viewOrders() {
+        System.out.println("\nViewing Orders:");
+        for (Order order : orderProcessing.getOrders()) {
+            System.out.println(order);
+        }
     }
 
 }

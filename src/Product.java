@@ -19,6 +19,7 @@ public class Product {
      * @param availableQuant the quantity of the product available in stock
      * @param type the type/category of the product
      */
+
     public Product(int id, String name, double price, int availableQuant, String type) {
         this.id = id;
         this.name = name;
