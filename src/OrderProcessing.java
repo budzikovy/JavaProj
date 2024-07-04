@@ -42,6 +42,7 @@ public class OrderProcessing {
             System.out.println(entry.getKey().getName() + " - Quantity: " + entry.getValue() + " - Price: $" + entry.getKey().getPrice());
         }
         System.out.println("Total Amount: $" + order.getTotalAmount());
+        System.out.println("Order Time: " + order.getOrderTime());
         System.out.println("=====================================");
     }
 

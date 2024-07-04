@@ -29,8 +29,9 @@ public class ProductManager {
         }
     }
 
-    public void viewProducts() {
-        products.forEach(System.out::println);
+    public List<Product> viewProducts() {
+//        products.forEach(System.out::println);
+        return products;
     }
 
     public Product getProductById(int productId) {
@@ -42,14 +43,14 @@ public class ProductManager {
         return null;
     }
 
-    public void addProductToCart(int productId, int quantity) {
+    public void addProductToCart(int productId, int quantity) throws StoreExceptions.ProductOutOfStockException {
         Product product = getProductById(productId);
         if (product != null && quantity <= product.getAvailableQuant()) {
             cart.addProductToCart(product, quantity);
             product.setAvailableQuant(product.getAvailableQuant() - quantity);
             System.out.println("Product added to cart: " + product + " | " + quantity);
         } else {
-            System.out.println("Product not available or wrong quantity");
+            throw new StoreExceptions.ProductOutOfStockException("Product is out of stock or you provided a quantity larger than the product stock");
         }
     }
 
@@ -57,9 +58,9 @@ public class ProductManager {
         cart.viewCart();
     }
 
-    public void placeOrder(String customerName, String customerEmail) {
+    public void placeOrder(String customerName, String customerEmail) throws StoreExceptions.OrderProcessingException{
         if (cart.getCartItems().isEmpty()) {
-            System.out.println("The cart is empty. Add products to the cart before placing an order.");
+            throw new StoreExceptions.OrderProcessingException("Card is empty. Add something to cart");
         } else {
             orderProcessing.processOrder(customerName, customerEmail, cart.getCartItems());
             cart.getCartItems().clear();

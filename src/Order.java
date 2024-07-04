@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Order {
@@ -7,6 +8,7 @@ public class Order {
     private String customerEmail;
     private Map<Product, Integer> orderedProducts;
     private double totalAmount;
+    private LocalDateTime orderTime;
 
     public Order(int orderId, String customerName, String customerEmail, Map<Product, Integer> orderedProducts) {
         this.orderId = orderId;
@@ -14,6 +16,15 @@ public class Order {
         this.customerEmail = customerEmail;
         this.orderedProducts = orderedProducts;
         this.totalAmount = calculateTotalAmount();
+        this.orderTime = LocalDateTime.now();
+    }
+
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
     }
 
     public int getOrderId() {
@@ -73,6 +84,7 @@ public class Order {
                 ", customerEmail='" + customerEmail + '\'' +
                 ", orderedProducts=" + orderedProducts +
                 ", totalAmount=" + totalAmount +
+                ", orderTime=" + orderTime +
                 '}';
     }
 }
