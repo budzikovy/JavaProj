@@ -1,0 +1,627 @@
+Index: src/Product.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n *\r\n * Represents a product with an id, name, price, available quantity, and type.\r\n */\r\n\r\npublic class Product {\r\n    private int id;\r\n    private String name;\r\n    private double price;\r\n    private int availableQuant;\r\n    private String type;\r\n\r\n    /**\r\n     * Constructs a new Product with the specified details.\r\n     *\r\n     * @param id the unique identifier of the product\r\n     * @param name the name of the product\r\n     * @param price the price of the product\r\n     * @param availableQuant the quantity of the product available in stock\r\n     * @param type the type/category of the product\r\n     */\r\n\r\n    public Product(int id, String name, double price, int availableQuant, String type) {\r\n        this.id = id;\r\n        this.name = name;\r\n        this.price = price;\r\n        this.availableQuant = availableQuant;\r\n        this.type = type;\r\n    }\r\n\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public double getPrice() {\r\n        return price;\r\n    }\r\n\r\n    public void setPrice(double price) {\r\n        this.price = price;\r\n    }\r\n\r\n    public int getAvailableQuant() {\r\n        return availableQuant;\r\n    }\r\n\r\n    public void setAvailableQuant(int availableQuant) {\r\n        this.availableQuant = availableQuant;\r\n    }\r\n\r\n    public String getType() {\r\n        return type;\r\n    }\r\n\r\n    public void setType(String type) {\r\n        this.type = type;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Product [id=\" + id + \", name=\" + name + \", price=\" + price + \", availableQuantity=\" + availableQuant + \"]\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Product.java b/src/Product.java
+--- a/src/Product.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ b/src/Product.java	(date 1720132610537)
+@@ -1,76 +1,3 @@
+-/**
+- *
+- * Represents a product with an id, name, price, available quantity, and type.
+- */
+-
+ public class Product {
+-    private int id;
+-    private String name;
+-    private double price;
+-    private int availableQuant;
+-    private String type;
+-
+-    /**
+-     * Constructs a new Product with the specified details.
+-     *
+-     * @param id the unique identifier of the product
+-     * @param name the name of the product
+-     * @param price the price of the product
+-     * @param availableQuant the quantity of the product available in stock
+-     * @param type the type/category of the product
+-     */
+-
+-    public Product(int id, String name, double price, int availableQuant, String type) {
+-        this.id = id;
+-        this.name = name;
+-        this.price = price;
+-        this.availableQuant = availableQuant;
+-        this.type = type;
+-    }
+-
+ 
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public void setName(String name) {
+-        this.name = name;
+-    }
+-
+-    public double getPrice() {
+-        return price;
+-    }
+-
+-    public void setPrice(double price) {
+-        this.price = price;
+-    }
+-
+-    public int getAvailableQuant() {
+-        return availableQuant;
+-    }
+-
+-    public void setAvailableQuant(int availableQuant) {
+-        this.availableQuant = availableQuant;
+-    }
+-
+-    public String getType() {
+-        return type;
+-    }
+-
+-    public void setType(String type) {
+-        this.type = type;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "Product [id=" + id + ", name=" + name + ", price=" + price + ", availableQuantity=" + availableQuant + "]";
+-    }
+ }
+Index: src/Electronics.java
+===================================================================
+diff --git a/src/Electronics.java b/src/Electronics.java
+deleted file mode 100644
+--- a/src/Electronics.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,5 +0,0 @@
+-public class Electronics extends Product{
+-    public Electronics(int id, String name, double price, int availableQuant) {
+-        super(id, name, price, availableQuant, "Electronics");
+-    }
+-}
+Index: src/Order.java
+===================================================================
+diff --git a/src/Order.java b/src/Order.java
+deleted file mode 100644
+--- a/src/Order.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,78 +0,0 @@
+-import java.util.Map;
+-
+-public class Order {
+-
+-    private int orderId;
+-    private String customerName;
+-    private String customerEmail;
+-    private Map<Product, Integer> orderedProducts;
+-    private double totalAmount;
+-
+-    public Order(int orderId, String customerName, String customerEmail, Map<Product, Integer> orderedProducts) {
+-        this.orderId = orderId;
+-        this.customerName = customerName;
+-        this.customerEmail = customerEmail;
+-        this.orderedProducts = orderedProducts;
+-        this.totalAmount = calculateTotalAmount();
+-    }
+-
+-    public int getOrderId() {
+-        return orderId;
+-    }
+-
+-    public void setOrderId(int orderId) {
+-        this.orderId = orderId;
+-    }
+-
+-    public String getCustomerName() {
+-        return customerName;
+-    }
+-
+-    public void setCustomerName(String customerName) {
+-        this.customerName = customerName;
+-    }
+-
+-    public String getCustomerEmail() {
+-        return customerEmail;
+-    }
+-
+-    public void setCustomerEmail(String customerEmail) {
+-        this.customerEmail = customerEmail;
+-    }
+-
+-    public Map<Product, Integer> getOrderedProducts() {
+-        return orderedProducts;
+-    }
+-
+-    public void setOrderedProducts(Map<Product, Integer> orderedProducts) {
+-        this.orderedProducts = orderedProducts;
+-        this.totalAmount = calculateTotalAmount();
+-    }
+-
+-    public double getTotalAmount() {
+-        return totalAmount;
+-    }
+-
+-    public void setTotalAmount(double totalAmount) {
+-        this.totalAmount = totalAmount;
+-    }
+-
+-    private double calculateTotalAmount() {
+-        double total = 0.0;
+-        for (Map.Entry<Product, Integer> entry : orderedProducts.entrySet()) {
+-            total += entry.getKey().getPrice() * entry.getValue();
+-        }
+-        return total;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "Order{" +
+-                "orderId=" + orderId +
+-                ", customerName='" + customerName + '\'' +
+-                ", customerEmail='" + customerEmail + '\'' +
+-                ", orderedProducts=" + orderedProducts +
+-                ", totalAmount=" + totalAmount +
+-                '}';
+-    }
+-}
+Index: src/Computer.java
+===================================================================
+diff --git a/src/Computer.java b/src/Computer.java
+deleted file mode 100644
+--- a/src/Computer.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,49 +0,0 @@
+-public class Computer extends Product{
+-
+-    private String processor;
+-    private int ram;
+-    private int storage;
+-
+-    public Computer(int id, String name, double price, int availableQuant, String processor, int ram, int storage) {
+-        super(id, name, price, availableQuant, "Computer");
+-        this.processor = processor;
+-        this.ram = ram;
+-        this.storage = storage;
+-    }
+-
+-    public String getProcessor() {
+-        return processor;
+-    }
+-
+-    public void setProcessor(String processor) {
+-        this.processor = processor;
+-    }
+-
+-    public int getRam() {
+-        return ram;
+-    }
+-
+-    public void setRam(int ram) {
+-        this.ram = ram;
+-    }
+-
+-    public int getStorage() {
+-        return storage;
+-    }
+-
+-    public void setStorage(int storage) {
+-        this.storage = storage;
+-    }
+-
+-    public void configureSpecifications(String processor, int ram, int storage) {
+-        this.processor = processor;
+-        this.ram = ram;
+-        this.storage = storage;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return super.toString() + " Computer [processor=" + processor + ", ramSize=" + ram + ", storageSize=" + storage + "]";
+-    }
+-
+-}
+Index: src/ProductManager.java
+===================================================================
+diff --git a/src/ProductManager.java b/src/ProductManager.java
+deleted file mode 100644
+--- a/src/ProductManager.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,76 +0,0 @@
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class ProductManager {
+-    private List<Product> products;
+-    private Cart cart;
+-    private OrderProcessing orderProcessing;
+-
+-    public ProductManager() {
+-        products = new ArrayList<>();
+-        cart = new Cart();
+-        orderProcessing = new OrderProcessing();
+-    }
+-
+-    public void addProduct(Product product) {
+-        products.add(product);
+-    }
+-
+-    public void removeProduct(int productId) {
+-        products.removeIf(product -> product.getId() == productId);
+-    }
+-
+-    public void updateProduct(int productId, Product updatedProduct) {
+-        for (int i = 0; i < products.size(); i++) {
+-            if (products.get(i).getId() == productId) {
+-                products.set(i, updatedProduct);
+-                break;
+-            }
+-        }
+-    }
+-
+-    public void viewProducts() {
+-        products.forEach(System.out::println);
+-    }
+-
+-    public Product getProductById(int productId) {
+-        for (Product product : products) {
+-            if (product.getId() == productId) {
+-                return product;
+-            }
+-        }
+-        return null;
+-    }
+-
+-    public void addProductToCart(int productId, int quantity) {
+-        Product product = getProductById(productId);
+-        if (product != null && quantity <= product.getAvailableQuant()) {
+-            cart.addProductToCart(product, quantity);
+-            product.setAvailableQuant(product.getAvailableQuant() - quantity);
+-            System.out.println("Product added to cart: " + product + " | " + quantity);
+-        } else {
+-            System.out.println("Product not available or wrong quantity");
+-        }
+-    }
+-
+-    public void viewCart() {
+-        cart.viewCart();
+-    }
+-
+-    public void placeOrder(String customerName, String customerEmail) {
+-        if (cart.getCartItems().isEmpty()) {
+-            System.out.println("The cart is empty. Add products to the cart before placing an order.");
+-        } else {
+-            orderProcessing.processOrder(customerName, customerEmail, cart.getCartItems());
+-            cart.getCartItems().clear();
+-        }
+-    }
+-
+-    public void viewOrders() {
+-        System.out.println("\nViewing Orders:");
+-        for (Order order : orderProcessing.getOrders()) {
+-            System.out.println(order);
+-        }
+-    }
+-
+-}
+Index: src/Main.java
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+deleted file mode 100644
+--- a/src/Main.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,130 +0,0 @@
+-import java.util.Scanner;
+-
+-public class Main {
+-
+-    private static final ProductManager productManager = new ProductManager();
+-
+-    public static void main(String[] args) {
+-
+-//        ProductManager manager = new ProductManager();
+-//
+-//        Computer comp = new Computer(1, "Laptop", 1500.0, 10, "Intel i7", 16, 512);
+-//        Smartphone phone = new Smartphone(2, "Smartphone", 800.0, 20, "Black", 4000, "Earphones");
+-//        Electronics tv = new Electronics(3, "Television", 1200.0, 15);
+-//
+-//        manager.addProduct(comp);
+-//        manager.addProduct(phone);
+-//        manager.addProduct(tv);
+-//
+-//        System.out.println("All Products:");
+-//        manager.viewProducts()
+-//                .forEach(System.out::println);
+-//
+-//        System.out.println("\nUpdating Laptop Configuration:");
+-//        comp.configureSpecifications("Intel i9", 32, 1024);
+-//        manager.updateProduct(1, comp);
+-//        System.out.println(manager.getProductById(1));
+-//
+-//        System.out.println("\nCustomizing Smartphone:");
+-//        phone.configureSpecifications("Blue", 5000, "Charger, Earphones");
+-//        manager.updateProduct(2, phone);
+-//        System.out.println(manager.getProductById(2));
+-//
+-//        System.out.println("\nRemoving Television:");
+-//        manager.removeProduct(3);
+-//        manager.viewProducts()
+-//                .forEach(System.out::println);
+-//
+-//        System.out.println("\nAdding Products to Cart:");
+-//        manager.addProductToCart(1,2);
+-//        manager.addProductToCart(2,1);
+-//
+-//        System.out.println("\nViewing Cart:");
+-//        manager.viewCart();
+-//
+-//        System.out.println("\nPlacing Order:");
+-//        manager.placeOrder("John Doe", "john.doe@example.com");
+-//
+-////        System.out.println("\nViewing Orders:");
+-//        manager.viewOrders();
+-
+-            // Initialize some products
+-            initializeProducts();
+-
+-            // Start command line interface
+-            startCLI();
+-        }
+-
+-        private static void initializeProducts() {
+-            Computer comp = new Computer(1, "Laptop", 1500.0, 10, "Intel i7", 16, 512);
+-            Smartphone phone = new Smartphone(2, "Smartphone", 800.0, 20, "Black", 4000, "Earphones");
+-            Electronics tv = new Electronics(3, "Television", 1200.0, 15);
+-
+-            productManager.addProduct(comp);
+-            productManager.addProduct(phone);
+-            productManager.addProduct(tv);
+-        }
+-
+-        private static void startCLI() {
+-            Scanner scanner = new Scanner(System.in);
+-            boolean running = true;
+-
+-            while (running) {
+-                System.out.println("\nWelcome to the Online Store");
+-                System.out.println("1. View Products");
+-                System.out.println("2. Add Product to Cart");
+-                System.out.println("3. View Cart");
+-                System.out.println("4. Place Order");
+-                System.out.println("5. View Orders");
+-                System.out.println("6. Exit");
+-                System.out.print("Choose an option: ");
+-
+-                int choice = scanner.nextInt();
+-                scanner.nextLine(); // consume the newline
+-
+-                switch (choice) {
+-                    case 1:
+-                        productManager.viewProducts();
+-                        break;
+-                    case 2:
+-                        addProductToCart(scanner);
+-                        break;
+-                    case 3:
+-                        productManager.viewCart();
+-                        break;
+-                    case 4:
+-                        placeOrder(scanner);
+-                        break;
+-                    case 5:
+-                        productManager.viewOrders();
+-                        break;
+-                    case 6:
+-                        running = false;
+-                        break;
+-                    default:
+-                        System.out.println("Invalid choice. Please try again.");
+-                }
+-            }
+-
+-            scanner.close();
+-        }
+-
+-    private static void addProductToCart(Scanner scanner) {
+-        System.out.print("\nEnter Product ID to add to cart: ");
+-        int productId = scanner.nextInt();
+-        System.out.print("Enter Quantity: ");
+-        int quantity = scanner.nextInt();
+-
+-        productManager.addProductToCart(productId, quantity);
+-    }
+-
+-    private static void placeOrder(Scanner scanner) {
+-        System.out.print("\nEnter Customer Name: ");
+-        String customerName = scanner.nextLine();
+-        System.out.print("Enter Customer Email: ");
+-        String customerEmail = scanner.nextLine();
+-
+-        productManager.placeOrder(customerName, customerEmail);
+-    }
+-
+-    }
+Index: src/Smartphone.java
+===================================================================
+diff --git a/src/Smartphone.java b/src/Smartphone.java
+deleted file mode 100644
+--- a/src/Smartphone.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,49 +0,0 @@
+-public class Smartphone extends Product{
+-
+-    private String color;
+-    private int batteryCapacity;
+-    private String accessories;
+-
+-    public Smartphone(int id, String name, double price, int availableQuant, String color, int batteryCapacity, String accessories) {
+-        super(id, name, price, availableQuant, "Smartphone");
+-        this.color = color;
+-        this.batteryCapacity = batteryCapacity;
+-        this.accessories = accessories;
+-    }
+-
+-    public String getColor() {
+-        return color;
+-    }
+-
+-    public void setColor(String color) {
+-        this.color = color;
+-    }
+-
+-    public int getBatteryCapacity() {
+-        return batteryCapacity;
+-    }
+-
+-    public void setBatteryCapacity(int batteryCapacity) {
+-        this.batteryCapacity = batteryCapacity;
+-    }
+-
+-    public String getAccessories() {
+-        return accessories;
+-    }
+-
+-    public void setAccessories(String accessories) {
+-        this.accessories = accessories;
+-    }
+-
+-    public void configureSpecifications(String color, int batteryCapacity, String accessories) {
+-        this.color = color;
+-        this.batteryCapacity = batteryCapacity;
+-        this.accessories = accessories;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return super.toString() + " Smartphone [color=" + color + ", batteryCapacity=" + batteryCapacity + ", accessories=" + accessories + "]";
+-    }
+-
+-}
+Index: src/Cart.java
+===================================================================
+diff --git a/src/Cart.java b/src/Cart.java
+deleted file mode 100644
+--- a/src/Cart.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,47 +0,0 @@
+-import java.util.HashMap;
+-import java.util.Map;
+-
+-public class Cart {
+-
+-    private final Map<Product, Integer> cartItems;
+-
+-    public Cart() {
+-        cartItems = new HashMap<>();
+-    }
+-
+-    public void addProductToCart(Product product, int quantity){
+-        if (cartItems.containsKey(product)){
+-            cartItems.put(product, cartItems.get(product) + quantity);
+-        } else {
+-            cartItems.put(product, quantity);
+-        }
+-    }
+-
+-    public void viewCart(){
+-        if (cartItems.isEmpty()){
+-            System.out.println("\nCart is empty.");
+-        } else {
+-            System.out.println("\nCart contains: ");
+-            for (Map.Entry<Product, Integer> entry : cartItems.entrySet()){
+-                Product product = entry.getKey();
+-                int quantity = entry.getValue();
+-                System.out.println(product + " | " + quantity);
+-            }
+-        }
+-    }
+-
+-    public void placeOrder(){
+-        if (cartItems.isEmpty()){
+-            System.out.println("\nYour cart is empty, add something to place order.");
+-        } else {
+-            System.out.println("\nOrder placed succesfully");
+-            viewCart();
+-            cartItems.clear();
+-        }
+-    }
+-
+-    public Map<Product, Integer> getCartItems(){
+-        return cartItems;
+-    }
+-
+-}
+Index: src/OrderProcessing.java
+===================================================================
+diff --git a/src/OrderProcessing.java b/src/OrderProcessing.java
+deleted file mode 100644
+--- a/src/OrderProcessing.java	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
++++ /dev/null	(revision 1034921861076d560a1a7cf4f3af18c637a725db)
+@@ -1,50 +0,0 @@
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Map;
+-
+-public class OrderProcessing {
+-
+-    private List<Order> orders;
+-    private static int orderCounter = 1;
+-
+-    public OrderProcessing() {
+-        orders = new ArrayList<>();
+-    }
+-
+-    public List<Order> getOrders() {
+-        return orders;
+-    }
+-
+-    public void setOrders(List<Order> orders) {
+-        this.orders = orders;
+-    }
+-
+-    public static int getOrderCounter() {
+-        return orderCounter;
+-    }
+-
+-    public static void setOrderCounter(int orderCounter) {
+-        OrderProcessing.orderCounter = orderCounter;
+-    }
+-
+-    public void processOrder(String customerName, String customerEmail, Map<Product, Integer> cartItems) {
+-        Order order = new Order(orderCounter++, customerName, customerEmail, cartItems);
+-        orders.add(order);
+-        generateInvoice(order);
+-    }
+-
+-    private void generateInvoice(Order order) {
+-        System.out.println("Invoice for Order ID: " + order.getOrderId());
+-        System.out.println("Customer Name: " + order.getCustomerName());
+-        System.out.println("Customer Email: " + order.getCustomerEmail());
+-        System.out.println("Ordered Products:");
+-        for (Map.Entry<Product, Integer> entry : order.getOrderedProducts().entrySet()) {
+-            System.out.println(entry.getKey().getName() + " - Quantity: " + entry.getValue() + " - Price: $" + entry.getKey().getPrice());
+-        }
+-        System.out.println("Total Amount: $" + order.getTotalAmount());
+-        System.out.println("=====================================");
+-    }
+-
+-
+-
+-}
