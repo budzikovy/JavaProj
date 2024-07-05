@@ -30,16 +30,6 @@ public class Cart {
         }
     }
 
-    public void placeOrder(){
-        if (cartItems.isEmpty()){
-            System.out.println("\nYour cart is empty, add something to place order.");
-        } else {
-            System.out.println("\nOrder placed succesfully");
-            viewCart();
-            cartItems.clear();
-        }
-    }
-
     public Map<Product, Integer> getCartItems(){
         return cartItems;
     }

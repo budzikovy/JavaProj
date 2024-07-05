@@ -5,19 +5,26 @@ public class ProductManager {
     private List<Product> products;
     private Cart cart;
     private OrderProcessing orderProcessing;
+    private int nextProductId;
 
     public ProductManager() {
         products = new ArrayList<>();
         cart = new Cart();
         orderProcessing = new OrderProcessing();
+        nextProductId = 1;
+    }
+
+    public int getNextProductId() {
+        return nextProductId++;
     }
 
     public void addProduct(Product product) {
+        product.setId(getNextProductId());
         products.add(product);
     }
 
-    public void removeProduct(int productId) {
-        products.removeIf(product -> product.getId() == productId);
+    public boolean removeProduct(int productId) {
+        return products.removeIf(product -> product.getId() == productId);
     }
 
     public void updateProduct(int productId, Product updatedProduct) {
@@ -30,7 +37,6 @@ public class ProductManager {
     }
 
     public List<Product> viewProducts() {
-//        products.forEach(System.out::println);
         return products;
     }
 
@@ -60,7 +66,7 @@ public class ProductManager {
 
     public void placeOrder(String customerName, String customerEmail) throws StoreExceptions.OrderProcessingException{
         if (cart.getCartItems().isEmpty()) {
-            throw new StoreExceptions.OrderProcessingException("Card is empty. Add something to cart");
+            throw new StoreExceptions.OrderProcessingException("Cart is empty. Add something to cart");
         } else {
             orderProcessing.processOrder(customerName, customerEmail, cart.getCartItems());
             cart.getCartItems().clear();
