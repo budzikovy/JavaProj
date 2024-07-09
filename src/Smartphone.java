@@ -1,41 +1,43 @@
-public class Smartphone extends Product{
+import java.util.Set;
 
-    private String color;
-    private int batteryCapacity;
-    private String accessories;
+public class Smartphone extends Product {
 
-    public Smartphone(int id, String name, double price, int availableQuant, String color, int batteryCapacity, String accessories) {
+    private SmartphoneSpecifications.Color color;
+    private SmartphoneSpecifications.BatteryCapacity batteryCapacity;
+    private Set<SmartphoneSpecifications.Accessory> accessories;
+
+    public Smartphone(int id, String name, double price, int availableQuant, SmartphoneSpecifications.Color color, SmartphoneSpecifications.BatteryCapacity batteryCapacity, Set<SmartphoneSpecifications.Accessory> accessories) {
         super(id, name, price, availableQuant, "Smartphone");
         this.color = color;
         this.batteryCapacity = batteryCapacity;
         this.accessories = accessories;
     }
 
-    public String getColor() {
+    public SmartphoneSpecifications.Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(SmartphoneSpecifications.Color color) {
         this.color = color;
     }
 
-    public int getBatteryCapacity() {
+    public SmartphoneSpecifications.BatteryCapacity getBatteryCapacity() {
         return batteryCapacity;
     }
 
-    public void setBatteryCapacity(int batteryCapacity) {
+    public void setBatteryCapacity(SmartphoneSpecifications.BatteryCapacity batteryCapacity) {
         this.batteryCapacity = batteryCapacity;
     }
 
-    public String getAccessories() {
+    public Set<SmartphoneSpecifications.Accessory> getAccessories() {
         return accessories;
     }
 
-    public void setAccessories(String accessories) {
+    public void setAccessories(Set<SmartphoneSpecifications.Accessory> accessories) {
         this.accessories = accessories;
     }
 
-    public void configureSpecifications(String color, int batteryCapacity, String accessories) {
+    public void configureSpecifications(SmartphoneSpecifications.Color color, SmartphoneSpecifications.BatteryCapacity batteryCapacity, Set<SmartphoneSpecifications.Accessory> accessories) {
         this.color = color;
         this.batteryCapacity = batteryCapacity;
         this.accessories = accessories;
@@ -43,7 +45,6 @@ public class Smartphone extends Product{
 
     @Override
     public String toString() {
-        return super.toString() + " Smartphone [color=" + color + ", batteryCapacity=" + batteryCapacity + ", accessories=" + accessories + "]";
+        return super.toString() + " Smartphone [color=" + color + ", batteryCapacity=" + batteryCapacity.getCapacity() + "mAh, accessories=" + accessories + "]";
     }
-
 }

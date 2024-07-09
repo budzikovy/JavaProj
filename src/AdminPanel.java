@@ -1,4 +1,6 @@
+import java.util.EnumSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AdminPanel {
 
@@ -70,13 +72,11 @@ public class AdminPanel {
         double price = scanner.nextDouble();
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
-        scanner.nextLine(); // consume the newline
-        System.out.print("Enter Processor: ");
-        String processor = scanner.nextLine();
-        System.out.print("Enter RAM Size: ");
-        int ramSize = scanner.nextInt();
-        System.out.print("Enter Storage Size: ");
-        int storageSize = scanner.nextInt();
+        scanner.nextLine();
+
+        ComputerSpecifications.Processor processor = chooseProcessor();
+        ComputerSpecifications.RAM ramSize = chooseRAM();
+        ComputerSpecifications.Storage storageSize = chooseStorage();
 
         Computer computer = new Computer(productManager.getNextProductId(), name, price, quantity, processor, ramSize, storageSize);
         productManager.addProduct(computer);
@@ -91,13 +91,10 @@ public class AdminPanel {
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Enter Color: ");
-        String color = scanner.nextLine();
-        System.out.print("Enter Battery Capacity: ");
-        int batteryCapacity = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter Accessories: ");
-        String accessories = scanner.nextLine();
+
+        SmartphoneSpecifications.Color color = chooseColor();
+        SmartphoneSpecifications.BatteryCapacity batteryCapacity = chooseBattery();
+        Set<SmartphoneSpecifications.Accessory> accessories = chooseAccessories();
 
         Smartphone smartphone = new Smartphone(productManager.getNextProductId(), name, price, quantity, color, batteryCapacity, accessories);
         productManager.addProduct(smartphone);
@@ -163,12 +160,10 @@ public class AdminPanel {
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Enter Processor: ");
-        String processor = scanner.nextLine();
-        System.out.print("Enter RAM Size: ");
-        int ramSize = scanner.nextInt();
-        System.out.print("Enter Storage Size: ");
-        int storageSize = scanner.nextInt();
+
+        ComputerSpecifications.Processor processor = chooseProcessor();
+        ComputerSpecifications.RAM ramSize = chooseRAM();
+        ComputerSpecifications.Storage storageSize = chooseStorage();
 
         computer.setName(name);
         computer.setPrice(price);
@@ -188,13 +183,10 @@ public class AdminPanel {
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Enter Color: ");
-        String color = scanner.nextLine();
-        System.out.print("Enter Battery Capacity: ");
-        int batteryCapacity = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter Accessories: ");
-        String accessories = scanner.nextLine();
+
+        SmartphoneSpecifications.Color color = chooseColor();
+        SmartphoneSpecifications.BatteryCapacity batteryCapacity = chooseBattery();
+        Set<SmartphoneSpecifications.Accessory> accessories = chooseAccessories();
 
         smartphone.setName(name);
         smartphone.setPrice(price);
@@ -220,5 +212,75 @@ public class AdminPanel {
         electronics.setAvailableQuant(quantity);
 
         System.out.println("Electronics updated successfully.");
+    }
+
+    private ComputerSpecifications.Processor chooseProcessor() {
+        System.out.println("Available Processors: ");
+        for (int i = 0; i < ComputerSpecifications.Processor.values().length; i++) {
+            System.out.println((i + 1) + ". " + ComputerSpecifications.Processor.values()[i]);
+        }
+        System.out.print("Enter Processor: ");
+        int processorChoice = scanner.nextInt();
+        scanner.nextLine();
+        return ComputerSpecifications.Processor.values()[processorChoice - 1];
+    }
+
+    private ComputerSpecifications.RAM chooseRAM() {
+        System.out.println("Available RAM Sizes: ");
+        for (int i = 0; i < ComputerSpecifications.RAM.values().length; i++) {
+            System.out.println((i + 1) + ". " + ComputerSpecifications.RAM.values()[i]);
+        }
+        System.out.print("Enter RAM Size: ");
+        int ramChoice = scanner.nextInt();
+        scanner.nextLine();
+        return ComputerSpecifications.RAM.values()[ramChoice - 1];
+    }
+
+    private ComputerSpecifications.Storage chooseStorage() {
+        System.out.println("Available Storage Sizes: ");
+        for (int i = 0; i < ComputerSpecifications.Storage.values().length; i++) {
+            System.out.println((i + 1) + ". " + ComputerSpecifications.Storage.values()[i]);
+        }
+        System.out.print("Enter Storage Size: ");
+        int storageChoice = scanner.nextInt();
+        scanner.nextLine();
+        return ComputerSpecifications.Storage.values()[storageChoice - 1];
+    }
+
+    private SmartphoneSpecifications.Color chooseColor() {
+        System.out.println("Available Colors: ");
+        for (int i = 0; i < SmartphoneSpecifications.Color.values().length; i++) {
+            System.out.println((i + 1) + ". " + SmartphoneSpecifications.Color.values()[i]);
+        }
+        System.out.print("Enter Color: ");
+        int colorChoice = scanner.nextInt();
+        scanner.nextLine();
+        return SmartphoneSpecifications.Color.values()[colorChoice - 1];
+    }
+
+    private SmartphoneSpecifications.BatteryCapacity chooseBattery() {
+        System.out.println("Available Battery Capacities: ");
+        for (int i = 0; i < SmartphoneSpecifications.BatteryCapacity.values().length; i++) {
+            System.out.println((i + 1) + ". " + SmartphoneSpecifications.BatteryCapacity.values()[i]);
+        }
+        System.out.print("Enter Battery Capacity: ");
+        int batteryChoice = scanner.nextInt();
+        scanner.nextLine();
+        return SmartphoneSpecifications.BatteryCapacity.values()[batteryChoice - 1];
+    }
+
+    private Set<SmartphoneSpecifications.Accessory> chooseAccessories() {
+        System.out.println("Available Accessories: ");
+        for (int i = 0; i < SmartphoneSpecifications.Accessory.values().length; i++) {
+            System.out.println((i + 1) + ". " + SmartphoneSpecifications.Accessory.values()[i]);
+        }
+        System.out.print("Enter Accessory choices (comma separated): ");
+        String accessoryChoices = scanner.nextLine();
+        String[] choices = accessoryChoices.split(",");
+        Set<SmartphoneSpecifications.Accessory> accessories = EnumSet.noneOf(SmartphoneSpecifications.Accessory.class);
+        for (String choice : choices) {
+            accessories.add(SmartphoneSpecifications.Accessory.values()[Integer.parseInt(choice.trim()) - 1]);
+        }
+        return accessories;
     }
 }

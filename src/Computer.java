@@ -1,41 +1,41 @@
-public class Computer extends Product{
+public class Computer extends Product {
 
-    private String processor;
-    private int ram;
-    private int storage;
+    private ComputerSpecifications.Processor processor;
+    private ComputerSpecifications.RAM ram;
+    private ComputerSpecifications.Storage storage;
 
-    public Computer(int id, String name, double price, int availableQuant, String processor, int ram, int storage) {
+    public Computer(int id, String name, double price, int availableQuant, ComputerSpecifications.Processor processor, ComputerSpecifications.RAM ram, ComputerSpecifications.Storage storage) {
         super(id, name, price, availableQuant, "Computer");
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
     }
 
-    public String getProcessor() {
+    public ComputerSpecifications.Processor getProcessor() {
         return processor;
     }
 
-    public void setProcessor(String processor) {
+    public void setProcessor(ComputerSpecifications.Processor processor) {
         this.processor = processor;
     }
 
-    public int getRam() {
+    public ComputerSpecifications.RAM getRam() {
         return ram;
     }
 
-    public void setRam(int ram) {
+    public void setRam(ComputerSpecifications.RAM ram) {
         this.ram = ram;
     }
 
-    public int getStorage() {
+    public ComputerSpecifications.Storage getStorage() {
         return storage;
     }
 
-    public void setStorage(int storage) {
+    public void setStorage(ComputerSpecifications.Storage storage) {
         this.storage = storage;
     }
 
-    public void configureSpecifications(String processor, int ram, int storage) {
+    public void configureSpecifications(ComputerSpecifications.Processor processor, ComputerSpecifications.RAM ram, ComputerSpecifications.Storage storage) {
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
@@ -43,7 +43,6 @@ public class Computer extends Product{
 
     @Override
     public String toString() {
-        return super.toString() + " Computer [processor=" + processor + ", ramSize=" + ram + ", storageSize=" + storage + "]";
+        return super.toString() + " Computer [processor=" + processor + ", ram=" + ram.getSize() + "GB, storage=" + storage.getSize() + "GB]";
     }
-
 }
