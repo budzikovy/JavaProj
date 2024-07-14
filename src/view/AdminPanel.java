@@ -65,7 +65,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to add a new product based on user input.
+     * Prompts the user to add a new product based on user input.
      */
 
     private void addProduct() {
@@ -89,7 +89,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to add a new Computer product based on user input.
+     * Prompts the user to add a new Computer product based on user input.
      */
 
     private void addComputer() {
@@ -111,7 +111,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to add a new Smartphone product based on user input.
+     * Prompts the user to add a new Smartphone product based on user input.
      */
 
     private void addSmartphone() {
@@ -133,7 +133,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to add a new Electronics product based on user input.
+     * Prompts the user to add a new Electronics product based on user input.
      */
 
     private void addElectronics() {
@@ -151,7 +151,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to remove a product based on user input.
+     * Prompts the user to remove a product based on user input.
      */
 
     private void removeProduct() {
@@ -168,7 +168,7 @@ public class AdminPanel {
     }
 
     /**
-     * Method to update a product based on user input.
+     * Prompts the user to update a product based on user input.
      */
 
     private void updateProduct() {
@@ -181,14 +181,11 @@ public class AdminPanel {
             System.out.println("Current Product Details: " + product);
             System.out.println("Enter New Details:");
 
-            if (product instanceof Computer) {
-                updateComputer((Computer) product);
-            } else if (product instanceof Smartphone) {
-                updateSmartphone((Smartphone) product);
-            } else if (product instanceof Electronics) {
-                updateElectronics((Electronics) product);
-            } else {
-                System.out.println("Invalid product type.");
+            switch (product) {
+                case Computer computer -> updateComputer(computer);
+                case Smartphone smartphone -> updateSmartphone(smartphone);
+                case Electronics electronics -> updateElectronics(electronics);
+                default -> System.out.println("Invalid product type.");
             }
         } else {
             System.out.println("Product not found.");

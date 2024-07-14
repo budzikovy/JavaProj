@@ -44,15 +44,6 @@ public class ProductService {
         return products.removeIf(product -> product.getId() == productId);
     }
 
-    public void updateProduct(int productId, Product updatedProduct) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == productId) {
-                updatedProduct.setId(productId);
-                products.set(i, updatedProduct);
-                break;
-            }
-        }
-    }
 
     public List<Product> viewProducts() {
         return products;

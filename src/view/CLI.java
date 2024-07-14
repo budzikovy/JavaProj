@@ -12,16 +12,27 @@ import java.util.EnumSet;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * CLI class provides a Command Line Interface for interacting with the Online Store.
+ */
 public class CLI {
 
     private final ProductService productService;
     private final Scanner scanner;
 
-    public CLI(ProductService productManager) {
-        this.productService = productManager;
+    /**
+     * Constructor for CLI.
+     *
+     * @param productService an instance of ProductService
+     */
+    public CLI(ProductService productService) {
+        this.productService = productService;
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Starts the command line interface and handles user input.
+     */
     public void start() {
         boolean running = true;
 
@@ -76,6 +87,9 @@ public class CLI {
         }
     }
 
+    /**
+     * Prompts the user to add a product to the cart by entering product ID and quantity.
+     */
     private void addProductToCart() {
         System.out.print("\nEnter Product ID to add to cart: ");
         int productId = scanner.nextInt();
@@ -111,6 +125,11 @@ public class CLI {
         }
     }
 
+    /**
+     * Configures specifications for a smartphone product.
+     *
+     * @param smartphone the smartphone to configure
+     */
     private void configureSmartphone(Smartphone smartphone) {
         SmartphoneColor color = chooseColor();
         SmartphoneBatteryCapacity batteryCapacity = chooseBattery();
@@ -120,6 +139,11 @@ public class CLI {
         System.out.println("Smartphone specifications configured successfully.");
     }
 
+    /**
+     * Prompts the user to choose a smartphone color.
+     *
+     * @return the chosen SmartphoneColor
+     */
     private SmartphoneColor chooseColor() {
         System.out.println("Available Colors: ");
         SmartphoneColor[] colors = SmartphoneColor.values();
@@ -132,6 +156,11 @@ public class CLI {
         return colors[colorChoice - 1];
     }
 
+    /**
+     * Prompts the user to choose a smartphone battery capacity.
+     *
+     * @return the chosen SmartphoneBatteryCapacity
+     */
     private SmartphoneBatteryCapacity chooseBattery() {
         System.out.println("Available Battery Capacities: ");
         SmartphoneBatteryCapacity[] batteries = SmartphoneBatteryCapacity.values();
@@ -144,6 +173,11 @@ public class CLI {
         return batteries[batteryChoice - 1];
     }
 
+    /**
+     * Prompts the user to choose smartphone accessories.
+     *
+     * @return a set of chosen SmartphoneAccessory
+     */
     private Set<SmartphoneAccessory> chooseAccessories() {
         System.out.println("Available Accessories: ");
         SmartphoneAccessory[] accessoriesArray = SmartphoneAccessory.values();
@@ -160,6 +194,11 @@ public class CLI {
         return accessories;
     }
 
+    /**
+     * Configures specifications for a computer product.
+     *
+     * @param computer the computer to configure
+     */
     private void configureComputer(Computer computer) {
         ComputerProcessor processor = chooseProcessor();
         ComputerRAM ram = chooseRAM();
@@ -169,6 +208,11 @@ public class CLI {
         System.out.println("Computer specifications configured successfully.");
     }
 
+    /**
+     * Prompts the user to choose a computer processor.
+     *
+     * @return the chosen ComputerProcessor
+     */
     private ComputerProcessor chooseProcessor() {
         System.out.println("Available Processors: ");
         ComputerProcessor[] processors = ComputerProcessor.values();
@@ -181,6 +225,11 @@ public class CLI {
         return processors[processorChoice - 1];
     }
 
+    /**
+     * Prompts the user to choose a computer RAM size.
+     *
+     * @return the chosen ComputerRAM
+     */
     private ComputerRAM chooseRAM() {
         System.out.println("Available RAM Sizes: ");
         ComputerRAM[] rams = ComputerRAM.values();
@@ -193,6 +242,11 @@ public class CLI {
         return rams[ramChoice - 1];
     }
 
+    /**
+     * Prompts the user to choose a computer storage size.
+     *
+     * @return the chosen ComputerStorage
+     */
     private ComputerStorage chooseStorage() {
         System.out.println("Available Storage Sizes: ");
         ComputerStorage[] storages = ComputerStorage.values();
@@ -210,6 +264,9 @@ public class CLI {
         productService.viewCart();
     }
 
+    /**
+     * Places an order with the customer details and optional discount code.
+     */
     private void placeOrder() {
         System.out.print("\nEnter Customer Name: ");
         String customerName = scanner.nextLine();

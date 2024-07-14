@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class DiscountService {
 
-    private Map<String, Double> discountCodes;
+    private final Map<String, Double> discountCodes;
 
     public DiscountService() {
         discountCodes = loadDiscountCodes();
