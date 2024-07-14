@@ -1,14 +1,24 @@
+package view;
+
+import enums.*;
+import exceptions.OrderProcessingException;
+import exceptions.ProductOutOfStockException;
+import model.Computer;
+import model.Product;
+import model.Smartphone;
+import services.ProductService;
+
 import java.util.EnumSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class CLI {
 
-    private final ProductManager productManager;
+    private final ProductService productService;
     private final Scanner scanner;
 
-    public CLI(ProductManager productManager) {
-        this.productManager = productManager;
+    public CLI(ProductService productManager) {
+        this.productService = productManager;
         this.scanner = new Scanner(System.in);
     }
 
@@ -61,7 +71,7 @@ public class CLI {
 
     private void viewProducts() {
         System.out.println("\nAvailable Products:");
-        for (Product product : productManager.viewProducts()) {
+        for (Product product : productService.viewProducts()) {
             System.out.println(product);
         }
     }
@@ -71,18 +81,22 @@ public class CLI {
         int productId = scanner.nextInt();
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
+        scanner.nextLine();
 
-        Product product = productManager.getProductById(productId);
+        Product product = productService.getProductById(productId);
+        if (product == null) {
+            System.out.println("Product not found!");
+            return;
+        }
+
         if (product instanceof Smartphone) {
             System.out.print("Do you want to configure the specifications? (yes/no): ");
-            scanner.nextLine(); /
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
                 configureSmartphone((Smartphone) product);
             }
         } else if (product instanceof Computer) {
             System.out.print("Do you want to configure the specifications? (yes/no): ");
-            scanner.nextLine();
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
                 configureComputer((Computer) product);
@@ -90,25 +104,25 @@ public class CLI {
         }
 
         try {
-            productManager.addProductToCart(productId, quantity);
+            productService.addProductToCart(productId, quantity);
             System.out.println("Product successfully added to cart.");
-        } catch (StoreExceptions.ProductOutOfStockException e) {
+        } catch (ProductOutOfStockException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     private void configureSmartphone(Smartphone smartphone) {
-        SmartphoneSpecifications.Color color = chooseColor();
-        SmartphoneSpecifications.BatteryCapacity batteryCapacity = chooseBattery();
-        Set<SmartphoneSpecifications.Accessory> accessories = chooseAccessories();
+        SmartphoneColor color = chooseColor();
+        SmartphoneBatteryCapacity batteryCapacity = chooseBattery();
+        Set<SmartphoneAccessory> accessories = chooseAccessories();
 
         smartphone.configureSpecifications(color, batteryCapacity, accessories);
         System.out.println("Smartphone specifications configured successfully.");
     }
 
-    private SmartphoneSpecifications.Color chooseColor() {
+    private SmartphoneColor chooseColor() {
         System.out.println("Available Colors: ");
-        SmartphoneSpecifications.Color[] colors = SmartphoneSpecifications.Color.values();
+        SmartphoneColor[] colors = SmartphoneColor.values();
         for (int i = 0; i < colors.length; i++) {
             System.out.println((i + 1) + ". " + colors[i]);
         }
@@ -118,9 +132,9 @@ public class CLI {
         return colors[colorChoice - 1];
     }
 
-    private SmartphoneSpecifications.BatteryCapacity chooseBattery() {
+    private SmartphoneBatteryCapacity chooseBattery() {
         System.out.println("Available Battery Capacities: ");
-        SmartphoneSpecifications.BatteryCapacity[] batteries = SmartphoneSpecifications.BatteryCapacity.values();
+        SmartphoneBatteryCapacity[] batteries = SmartphoneBatteryCapacity.values();
         for (int i = 0; i < batteries.length; i++) {
             System.out.println((i + 1) + ". " + batteries[i]);
         }
@@ -130,16 +144,16 @@ public class CLI {
         return batteries[batteryChoice - 1];
     }
 
-    private Set<SmartphoneSpecifications.Accessory> chooseAccessories() {
+    private Set<SmartphoneAccessory> chooseAccessories() {
         System.out.println("Available Accessories: ");
-        SmartphoneSpecifications.Accessory[] accessoriesArray = SmartphoneSpecifications.Accessory.values();
+        SmartphoneAccessory[] accessoriesArray = SmartphoneAccessory.values();
         for (int i = 0; i < accessoriesArray.length; i++) {
             System.out.println((i + 1) + ". " + accessoriesArray[i]);
         }
         System.out.print("Enter Accessory choices (comma separated): ");
         String accessoryChoices = scanner.nextLine();
         String[] choices = accessoryChoices.split(",");
-        Set<SmartphoneSpecifications.Accessory> accessories = EnumSet.noneOf(SmartphoneSpecifications.Accessory.class);
+        Set<SmartphoneAccessory> accessories = EnumSet.noneOf(SmartphoneAccessory.class);
         for (String choice : choices) {
             accessories.add(accessoriesArray[Integer.parseInt(choice.trim()) - 1]);
         }
@@ -147,17 +161,17 @@ public class CLI {
     }
 
     private void configureComputer(Computer computer) {
-        ComputerSpecifications.Processor processor = chooseProcessor();
-        ComputerSpecifications.RAM ram = chooseRAM();
-        ComputerSpecifications.Storage storage = chooseStorage();
+        ComputerProcessor processor = chooseProcessor();
+        ComputerRAM ram = chooseRAM();
+        ComputerStorage storage = chooseStorage();
 
         computer.configureSpecifications(processor, ram, storage);
         System.out.println("Computer specifications configured successfully.");
     }
 
-    private ComputerSpecifications.Processor chooseProcessor() {
+    private ComputerProcessor chooseProcessor() {
         System.out.println("Available Processors: ");
-        ComputerSpecifications.Processor[] processors = ComputerSpecifications.Processor.values();
+        ComputerProcessor[] processors = ComputerProcessor.values();
         for (int i = 0; i < processors.length; i++) {
             System.out.println((i + 1) + ". " + processors[i]);
         }
@@ -167,9 +181,9 @@ public class CLI {
         return processors[processorChoice - 1];
     }
 
-    private ComputerSpecifications.RAM chooseRAM() {
+    private ComputerRAM chooseRAM() {
         System.out.println("Available RAM Sizes: ");
-        ComputerSpecifications.RAM[] rams = ComputerSpecifications.RAM.values();
+        ComputerRAM[] rams = ComputerRAM.values();
         for (int i = 0; i < rams.length; i++) {
             System.out.println((i + 1) + ". " + rams[i].getSize() + "GB");
         }
@@ -179,9 +193,9 @@ public class CLI {
         return rams[ramChoice - 1];
     }
 
-    private ComputerSpecifications.Storage chooseStorage() {
+    private ComputerStorage chooseStorage() {
         System.out.println("Available Storage Sizes: ");
-        ComputerSpecifications.Storage[] storages = ComputerSpecifications.Storage.values();
+        ComputerStorage[] storages = ComputerStorage.values();
         for (int i = 0; i < storages.length; i++) {
             System.out.println((i + 1) + ". " + storages[i].getSize() + "GB");
         }
@@ -193,7 +207,7 @@ public class CLI {
 
     private void viewCart() {
         System.out.println("\nCart Contents:");
-        productManager.viewCart();
+        productService.viewCart();
     }
 
     private void placeOrder() {
@@ -202,20 +216,29 @@ public class CLI {
         System.out.print("Enter Customer Email: ");
         String customerEmail = scanner.nextLine();
 
+        System.out.print("Do you have a discount code? (yes/no): ");
+        String hasDiscountCode = scanner.nextLine();
+        String discountCode = null;
+
+        if (hasDiscountCode.equalsIgnoreCase("yes")) {
+            System.out.print("Enter Discount Code: ");
+            discountCode = scanner.nextLine();
+        }
+
         try {
-            productManager.placeOrder(customerName, customerEmail);
+            productService.placeOrder(customerName, customerEmail, discountCode);
             System.out.println("Order placed successfully!");
-        } catch (StoreExceptions.OrderProcessingException e) {
+        } catch (OrderProcessingException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     private void viewOrders() {
-        productManager.viewOrders();
+        productService.viewOrders();
     }
 
     private void startAdminPanel() {
-        AdminPanel adminPanel = new AdminPanel(productManager, scanner);
+        AdminPanel adminPanel = new AdminPanel(productService, scanner);
         adminPanel.start();
     }
 }

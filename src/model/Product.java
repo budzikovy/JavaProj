@@ -1,9 +1,17 @@
+package model;
+
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
- *
- * Represents a product with an id, name, price, available quantity, and type.
+ * Represents a generic product with basic attributes such as ID, name, price, available quantity, and type.
+ * Implements Serializable to support object serialization.
  */
 
-public class Product {
+public class Product implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4573766951682028545L;
     private int id;
     private String name;
     private double price;
@@ -11,13 +19,12 @@ public class Product {
     private String type;
 
     /**
-     * Constructs a new Product with the specified details.
-     *
+     * Constructs a new Product object with specified attributes.
      * @param id the unique identifier of the product
      * @param name the name of the product
      * @param price the price of the product
-     * @param availableQuant the quantity of the product available in stock
-     * @param type the type/category of the product
+     * @param availableQuant the available quantity of the product
+     * @param type the type or category of the product
      */
 
     public Product(int id, String name, double price, int availableQuant, String type) {
@@ -27,7 +34,6 @@ public class Product {
         this.availableQuant = availableQuant;
         this.type = type;
     }
-
 
     public int getId() {
         return id;
@@ -71,6 +77,12 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [id=" + id + ", name=" + name + ", price=" + price + ", availableQuantity=" + availableQuant + "]";
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", availableQuant=" + availableQuant +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

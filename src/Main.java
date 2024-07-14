@@ -1,7 +1,10 @@
-public class Main {
+import services.ProductService;
+import utils.Initializer;
+import view.CLI;
 
+public class Main {
     public static void main(String[] args) {
-        ProductManager productManager = new ProductManager();
+        ProductService productManager = new ProductService();
         Initializer.initializeProducts(productManager);
 
         CLI cli = new CLI(productManager);
