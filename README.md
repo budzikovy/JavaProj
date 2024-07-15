@@ -19,7 +19,7 @@ Model classes representing different types of products.
 
 ### Services
 
-- `ProductService.java`, `InvoiceService.java`, `OrderPersistenceService.java`, `OrderService.java`, `DiscountService.java` : Services class handling the business logic for managing products.
+- `ProductService.java`, `InvoiceService.java`, `OrderPersistenceService.java`, `OrderService.java`, `DiscountService.java` : Service classes for handling the business logic for managing products / orders.
 
 ### Utils
 
